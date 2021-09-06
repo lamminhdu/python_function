@@ -306,25 +306,129 @@ def reverse_string_3(s):
     return ' '.join(reversed(words))
 
 
-def rotation(arr):
-    pass
+def rotation(arr, brr):
+    # True, False (same element, index diff) assume no duplicate
+    if len(arr) != len(brr):
+        return False
+    else:
+        n = len(arr)
+        key_value = arr[0]
+        key_index = 0
+
+        # find the index of value arr[0] in brr
+        for i in range(n):
+            if brr[i] == key_value:
+                key_index = i
+                break
+
+        # if arr[0] not in brr  -> false
+        if key_index == 0:
+            return False
+
+        # check rotation
+        for j in range(n):
+            rot_index = (j + key_index) % n   # rotation index (convert index)
+            if arr[j] != brr[rot_index]:
+                return False
+
+        return True
 
 
 def common_elements(arr, brr):
-    pass
+    res = []
+    for i in arr:
+        if i in brr:
+            res.append(i)
+    return res
+
+
+def common_elements_2(arr, brr):
+    res = []
+    pa = 0
+    pb = 0
+
+    while pa < len(arr) and pb < len(brr):
+        if arr[pa] == brr[pb]:
+            res.append(arr[pa])
+            pa += 1
+            pb += 1
+        elif arr[pa] > brr[pb]:
+            pb += 1
+        else:
+            pa += 1
+
+    return res
 
 
 def most_frequent(arr):
-    pass
+    # return most frequent in arr
+    count = {}
+    max_count = 0
+    max_item = 0
+    for i in arr:
+        if i in count:
+            count[i] += 1
+        else:
+            count[i] = 1
+
+        if count[i] > max_count:
+            max_count = count[i]
+            max_item = i
+
+    print(count)
+    return max_item
 
 
 def unique(s):
-    pass
+    # use length and set object
+    s = s.replace(' ', '').lower()
+    return len(s) == len(set(s))
+
+
+def unique_2(s):
+    # use frequent count
+    s = s.replace(' ', '').lower()
+    count = {}
+
+    for i in s:
+        if i not in count:
+            count[i] = 1
+        else:
+            count[i] += 1
+
+    if all([count[val] == 1 for val in count]):
+        return True
+
+    return False
+
+
+def unique_3(s):
+    # use set()
+    s = s.replace(' ', '').lower()
+    character = set()
+    for i in s:
+        if i in character:
+            return False
+        else:
+            character.add(i)
+    return True
 
 
 def non_repeating(s):
-    pass
+    s = s.replace(' ', '').lower()
+    count = {}
+    res = []
 
+    for i in s:
+        if i not in count:
+            count[i] = 1
+        else:
+            count[i] += 1
 
-brr = list(range(10))
-print(reverse_arr(brr))
+    # sort an dictionary by value, count.items() return (key,value) pair in tuple
+    y = sorted(count.items(), key=lambda x: x[1])
+
+    for i in y:
+        if i[1] == 1:
+            res.append(i)
+    return res
