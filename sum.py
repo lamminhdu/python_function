@@ -294,7 +294,7 @@ def reverse_string_3(s):
     words = []
     i = 0
 
-    while i < n and s[i] not in space:
+    while i < n and s[i] not in space:  # Do we need s[i] not in space at this line
         if s[i] not in space:
             start = i
             while i < n and s[i] not in space:
@@ -307,7 +307,7 @@ def reverse_string_3(s):
 
 
 def rotation(arr, brr):
-    # True, False (same element, index diff) assume no duplicate
+    # True, False (same element and order, index diff) assume no duplicate
     if len(arr) != len(brr):
         return False
     else:
@@ -342,7 +342,7 @@ def common_elements(arr, brr):
     return res
 
 
-def common_elements_2(arr, brr):
+def common_elements_2(arr, brr):  # arr and brr is sorted
     res = []
     pa = 0
     pb = 0
